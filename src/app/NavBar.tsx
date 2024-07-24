@@ -1,18 +1,29 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Navbar, Nav } from "react-bootstrap";
 
 interface NavBarProps {
   show: boolean;
 }
 
-const StyledNavbar = styled(Navbar)<{ show: boolean }>`
+const StyledNavbar = styled(Navbar)<{ className?: string }>`
   background-color: #343a40;
   transition: top 0.3s;
-  top: ${({ show }) => (show ? "0" : "-80px")};
   position: fixed;
   width: 100%;
   z-index: 10;
+
+  ${(props) =>
+    props.className === "visible" &&
+    css`
+      top: 0;
+    `}
+
+  ${(props) =>
+    props.className === "hidden" &&
+    css`
+      top: -80px;
+    `}
 `;
 
 const Logo = styled.img`
@@ -23,7 +34,7 @@ const Logo = styled.img`
 
 const NavBar: React.FC<NavBarProps> = ({ show }) => {
   return (
-    <StyledNavbar expand="lg" show={show}>
+    <StyledNavbar expand="lg" className={show ? "visible" : "hidden"}>
       <Navbar.Brand href="#">
         <Logo src="./favicon.ico" alt="Brand Logo" />
       </Navbar.Brand>

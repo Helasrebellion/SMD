@@ -35,9 +35,9 @@ const HeroContent = styled.div`
   z-index: 1;
   width: 80%;
   max-width: 800px;
-  margin: 0 auto; 
-  padding-left: 30px; 
-  padding-right: 30px; 
+  margin: 0 auto;
+  padding-left: 30px;
+  padding-right: 30px;
 `;
 
 const CustomButton = styled.button`
@@ -57,7 +57,7 @@ const CustomButton = styled.button`
 
 const ServicesSection = styled.section`
   padding: 50px 20px;
-  background-color: #090d0d; 
+  background-color: #090d0d;
   text-align: center;
 `;
 

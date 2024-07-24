@@ -1,7 +1,8 @@
-import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Form, Button, Alert, Container } from "react-bootstrap";
-import "./ContactForm.css";
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
+import axios from 'axios';
+import './ContactForm.css';
 
 type FormData = {
   name: string;
@@ -10,15 +11,17 @@ type FormData = {
 };
 
 const ContactForm: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log(data);
+    try {
+      await axios.post('app/send-email', data);
+      setAlertMessage('Form submitted successfully');
+    } catch (error) {
+      setAlertMessage('Error submitting the form');
+    }
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
   };
@@ -27,7 +30,7 @@ const ContactForm: React.FC = () => {
     <Container className="dark-mode-container">
       {showAlert && (
         <Alert variant="dark" className="alert-dark-mode">
-          Form submitted successfully
+          {alertMessage}
         </Alert>
       )}
       <h1>Contact Us</h1>
@@ -37,7 +40,7 @@ const ContactForm: React.FC = () => {
           <Form.Control
             type="text"
             placeholder="Enter your name"
-            {...register("name", { required: true })}
+            {...register('name', { required: true })}
           />
           {errors.name && <span className="text-danger">Name is required</span>}
         </Form.Group>
@@ -47,11 +50,9 @@ const ContactForm: React.FC = () => {
           <Form.Control
             type="email"
             placeholder="Enter your email"
-            {...register("email", { required: true })}
+            {...register('email', { required: true })}
           />
-          {errors.email && (
-            <span className="text-danger">Email is required</span>
-          )}
+          {errors.email && <span className="text-danger">Email is required</span>}
         </Form.Group>
 
         <Form.Group controlId="formMessage">
@@ -59,11 +60,9 @@ const ContactForm: React.FC = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            {...register("message", { required: true })}
+            {...register('message', { required: true })}
           />
-          {errors.message && (
-            <span className="text-danger">Message is required</span>
-          )}
+          {errors.message && <span className="text-danger">Message is required</span>}
         </Form.Group>
 
         <Button variant="primary" type="submit" className="dark-mode-button">
