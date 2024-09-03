@@ -7,7 +7,8 @@ interface NavBarProps {
 }
 
 const StyledNavbar = styled(Navbar)<{ className?: string }>`
-  background-color: #343a40;
+  background-color: #231C2F;
+  color: white;  // Sets default text color to white
   transition: top 0.3s;
   position: fixed;
   width: 100%;
@@ -22,15 +23,27 @@ const StyledNavbar = styled(Navbar)<{ className?: string }>`
   ${(props) =>
     props.className === "hidden" &&
     css`
-      top: -80px;
+      top: -200px;
     `}
-`;
 
+  a, .navbar-brand, .nav-link {
+    color: white !important;  // Using !important to override default styles
+    &:hover, &:focus {
+      color: #52d999ff;  // Lighter color on hover for better interaction feedback
+    }
+  }
+`;
 const Logo = styled.img`
-  height: 50px;
+  height: 100px;
   width: auto;
   margin-right: 10px;
 `;
+const scrollToSection = (sectionId: string) => {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
 
 const NavBar: React.FC<NavBarProps> = ({ show }) => {
   return (
@@ -41,13 +54,12 @@ const NavBar: React.FC<NavBarProps> = ({ show }) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="#placeholder1">Placeholder1</Nav.Link>
-          <Nav.Link href="#placeholder2">Placeholder2</Nav.Link>
-          <Nav.Link href="#placeholder3">Placeholder3</Nav.Link>
+          <Nav.Link onClick={() => scrollToSection('services-section')} href="#services-section">Services</Nav.Link>
+          <Nav.Link onClick={() => scrollToSection('progress-bar-section')} href="#progress-bar-section">Progress</Nav.Link>
+          <Nav.Link onClick={() => scrollToSection('background-section')} href="#background-section">Background</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </StyledNavbar>
   );
 };
-
 export default NavBar;

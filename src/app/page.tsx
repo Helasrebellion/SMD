@@ -7,6 +7,10 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import ContactForm from "./ContactForm";
 import NavBar from "./NavBar";
 import ServiceCard from "./ServiceCard";
+import ProgressBars from "./ProgressBars";
+import PersonalInfo from './PersonalInfo';
+import ProfessionalGallery from './ProfessionalGallery';
+import Footer from './footer';
 
 const HeroSection = styled.section`
   position: relative;
@@ -57,7 +61,6 @@ const CustomButton = styled.button`
 
 const ServicesSection = styled.section`
   padding: 50px 20px;
-  background-color: #090d0d;
   text-align: center;
 `;
 
@@ -66,6 +69,39 @@ const ServicesContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+const ProgressBarSection = styled.section`
+  padding: 50px 20px;
+  background-color: #000000ff; // This sets the background color for the entire section
+  text-align: center;
+`;
+
+const BackgroundSection = styled.section`
+  padding: 50px 20px;
+  text-align: center;
+`;
+
+// Data for progress bars
+const progressBarData = [
+  { imageSrc: 'html.png', percentage: 100 },
+  { imageSrc: 'css.png', percentage: 100 },
+  { imageSrc: 'javascript.png', percentage: 100 },
+  { imageSrc: 'php.png', percentage: 80 },
+  { imageSrc: 'react-js.png', percentage: 90 },
+  { imageSrc: 'vue.png', percentage: 80 },
+  { imageSrc: 'typescriptlogo.png', percentage: 50 },
+  { imageSrc: 'angular.png', percentage: 50 },
+  { imageSrc: 'ionic.png', percentage: 50 },
+  { imageSrc: 'java.png', percentage: 80 },
+  { imageSrc: 'csharp.png', percentage: 60 },
+  { imageSrc: 'python.png', percentage: 50 },
+  { imageSrc: 'go.png', percentage: 50 },
+  { imageSrc: 'mysql.png', percentage: 70 },
+  { imageSrc: 'dotnetmvc.png', percentage: 50 },
+  { imageSrc: 'Kotlin.png', percentage: 40 },
+];
+
+
 
 const HomePage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -125,7 +161,7 @@ const HomePage: React.FC = () => {
         </Modal.Body>
       </Modal>
 
-      <ServicesSection>
+      <ServicesSection id="services-section">
         <h2>Our Services</h2>
         <ServicesContainer>
           <ServiceCard
@@ -159,6 +195,20 @@ const HomePage: React.FC = () => {
           />
         </ServicesContainer>
       </ServicesSection>
+
+<ProgressBarSection id="progress-bar-section">
+  <h2>Master of Code: Forging Full-Stack Mastery Through Dedication!</h2>
+
+  <ProgressBars data={progressBarData} />
+  
+          </ProgressBarSection>
+
+<BackgroundSection id="background-section">
+<PersonalInfo />
+<ProfessionalGallery />
+</BackgroundSection>
+
+<Footer />
     </div>
   );
 };
